@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-orientation" content="portrait"/>
+    <title>Free Dialog</title>
+
+    <link rel="stylesheet" href="css/free-dialog.css"/>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        a:focus {
+            outline: thin dotted #333;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
+        }
+
+        a:hover {
+            outline: 0;
+        }
+
+        a:active {
+            outline: 0;
+        }
+
+        a:hover {
+            color: #005580;
+            text-decoration: underline;
+        }
+
+        blockquote small:before {
+            content: '\2014 \00A0';
+        }
+
+        q:before {
+            content: "";
+        }
+
+        q:after {
+            content: "";
+        }
+
+        blockquote:before {
+            content: "";
+        }
+
+        blockquote:after {
+            content: "";
+        }
+    </style>
+    <script src="js/free-dialog.js"></script>
+</head>
+<body>
+<div style="font-family: Helvetica , Tahoma , Arial , STXihei , Heiti , SimSun , sans-serif; font-size: 13px; font-weight: 100; color: #2f2f2f;">
+    <p class="preview">
+
+    <h1 id="free20dialog20e4bdbfe794a8e8afb4e6988e"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.6; color: inherit; text-rendering: optimizelegibility; font-size: 1.5em;">
+        Free Dialog 使用说明</h1>
+
+    <h2 id="e7ae80e4bb8b"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 40px; color: inherit; text-rendering: optimizelegibility; font-size: 1.4em;">
+        简介</h2>
+
+    <p style="margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 0; line-height: 1.8em;">
+        一款主要用于移动端浏览器的简单弹窗插件，默认提供气泡、提示框、询问框三种常用对话框，还可以自己实例化新的弹窗对象，并轻松自定义新的皮肤样式。</p>
+
+    <h2 id="e4bdbfe794a8e8afb4e6988e"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 40px; color: inherit; text-rendering: optimizelegibility; font-size: 1.4em;">
+        使用说明</h2>
+
+    <h3 id="120e5bcb9e587bae6b094e6b3a1efbc8ce5b9b6e59ca8e4b8a4e7a792e5908ee887aae58aa8e6b688e5a4b1"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; text-rendering: optimizelegibility; font-size: 1.2em;">
+        1. 弹出气泡，并在两秒后自动消失</h3>
+<pre style="word-wrap: break-word;"><code class="language-js hljs javascript"
+                                          style="background-color: #D6DBDF; border: 0; border-radius: 4px; color: #4f424c; font-size: 90%; padding-top: 0.5em; padding-right: 0.5em; padding-bottom: 0.5em; padding-left: 0.5em; display: block; overflow-x: auto; background: #e7e9db; -webkit-text-size-adjust: none;">
+    FreeDialog.tips(<span class="hljs-string" style="color: #48b685;">'我马上会自动消失的。'</span>, <span class="hljs-number"
+                                                                                                   style="color: #f99b15;">2000</span>);
+
+</code></pre>
+    <p><input id="btn1" type="button" value="点我看看"/></p>
+
+    <h3 id="220e5bcb9e587bae68f90e7a4bae6a186efbc8ce782b9e587bbe7a1aee5ae9ae5908ee6b688e5a4b1"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; text-rendering: optimizelegibility; font-size: 1.2em;">
+        2. 弹出提示框，点击确定后消失</h3>
+<pre style="word-wrap: break-word;"><code class="language-js hljs javascript"
+                                          style="background-color: #D6DBDF; border: 0; border-radius: 4px; color: #4f424c; font-size: 90%; padding-top: 0.5em; padding-right: 0.5em; padding-bottom: 0.5em; padding-left: 0.5em; display: block; overflow-x: auto; background: #e7e9db; -webkit-text-size-adjust: none;">
+    FreeDialog.alert([<span class="hljs-string" style="color: #48b685;">'这是一条消息。'</span>, <span class="hljs-string"
+                                                                                                  style="color: #48b685;">'点击确定才会消失。'</span>]);
+
+</code></pre>
+    <p><input id="btn2" type="button" value="点我看看"/></p>
+
+    <h3 id="320e5bcb9e587bae68f90e7a4bae6a186efbc8ce782b9e587bbe7a1aee5ae9ae5908ee6b688e5a4b1efbc8ce58f96e6b688e5908ee4b88de6b688e5a4b1"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; text-rendering: optimizelegibility; font-size: 1.2em;">
+        3. 弹出提示框，点击确定后消失，点取消后不消失</h3>
+<pre style="word-wrap: break-word;"><code class="language-js hljs javascript"
+                                          style="background-color: #D6DBDF; border: 0; border-radius: 4px; color: #4f424c; font-size: 90%; padding-top: 0.5em; padding-right: 0.5em; padding-bottom: 0.5em; padding-left: 0.5em; display: block; overflow-x: auto; background: #e7e9db; -webkit-text-size-adjust: none;">
+    FreeDialog.ask(<span class="hljs-string" style="color: #48b685;">'你确定要关闭这个对话框吗？'</span>,
+    <span class="hljs-function" style="color: #815ba4;"><span class="hljs-keyword"
+                                                              style="color: #815ba4;">    function</span><span
+            class="hljs-params" style="color: #f99b15;">()</span></span>{ <span class="hljs-comment"
+                                                                                style="color: #776e71;">// 点击确定键的回调函数</span>
+            FreeDialog.tips(<span class="hljs-string" style="color: #48b685;">'关闭了。'</span>);
+        },
+    <span class="hljs-function" style="color: #815ba4;"><span class="hljs-keyword"
+                                                              style="color: #815ba4;">    function</span><span
+            class="hljs-params" style="color: #f99b15;">()</span></span>{ <span class="hljs-comment"
+                                                                                style="color: #776e71;">// 点击取消键的回调函数</span>
+            FreeDialog.tips(<span class="hljs-string" style="color: #48b685;">'关闭被阻止。'</span>);
+    <span class="hljs-keyword" style="color: #815ba4;">        return</span> <span class="hljs-literal" style="color: #f99b15;">false</span>;
+    <span class="hljs-comment" style="color: #776e71;">// 返回false可阻止默认关闭行为</span>
+        }
+    );
+
+</code></pre>
+    <p><input id="btn3" type="button" value="点我看看"/></p>
+
+    <h3 id="420e4bfaee694b9e68f90e7a4bae6a186e79aaee882a4efbc88e4bc9ae5bdb1e5938de5908ee7bbade68f90e7a4bae6a186e69588e69e9cefbc89"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; text-rendering: optimizelegibility; font-size: 1.2em;">
+        4. 修改提示框皮肤（会影响后续提示框效果）</h3>
+<pre style="word-wrap: break-word;"><code class="language-js hljs javascript"
+                                          style="background-color: #D6DBDF; border: 0; border-radius: 4px; color: #4f424c; font-size: 90%; padding-top: 0.5em; padding-right: 0.5em; padding-bottom: 0.5em; padding-left: 0.5em; display: block; overflow-x: auto; background: #e7e9db; -webkit-text-size-adjust: none;">
+    FreeDialog.alertDialog.setSkin(<span class="hljs-string" style="color: #48b685;">'skin-orange'</span>);
+    FreeDialog.alert(<span class="hljs-string" style="color: #48b685;">'提示框变为黄色皮肤。'</span>);
+
+</code></pre>
+    <p><input id="btn4" type="button" value="点我看看"/></p>
+
+    <h3 id="520e4bfaee694b9e8afa2e997aee6a186e6a087e9a298efbc88e4bc9ae5bdb1e5938de5908ee7bbade8afa2e997aee6a186e69588e69e9cefbc89"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; text-rendering: optimizelegibility; font-size: 1.2em;">
+        5. 修改询问框标题（会影响后续询问框效果）</h3>
+<pre style="word-wrap: break-word;"><code class="language-js hljs javascript"
+                                          style="background-color: #D6DBDF; border: 0; border-radius: 4px; color: #4f424c; font-size: 90%; padding-top: 0.5em; padding-right: 0.5em; padding-bottom: 0.5em; padding-left: 0.5em; display: block; overflow-x: auto; background: #e7e9db; -webkit-text-size-adjust: none;">
+    FreeDialog.askDialog.setTitle(<span class="hljs-string" style="color: #48b685;">'用户调查'</span>);
+    FreeDialog.ask(<span class="hljs-string" style="color: #48b685;">'请问您想要参与我们的用户调查吗？'</span>,
+    <span class="hljs-function" style="color: #815ba4;"><span class="hljs-keyword"
+                                                              style="color: #815ba4;">    function</span><span
+            class="hljs-params" style="color: #f99b15;">()</span></span>{
+            FreeDialog.tips(<span class="hljs-string" style="color: #48b685;">'好的，谢谢您的参与！'</span>);
+        },
+    <span class="hljs-function" style="color: #815ba4;"><span class="hljs-keyword"
+                                                              style="color: #815ba4;">    function</span><span
+            class="hljs-params" style="color: #f99b15;">()</span></span>{
+            FreeDialog.tips(<span class="hljs-string" style="color: #48b685;">'真是遗憾，那下次再会吧！'</span>);
+        }
+    );
+
+</code></pre>
+    <p><input id="btn5" type="button" value="点我看看"/></p>
+
+    <h3 id="620e5ae9ee4be8be58c96e696b0e79a84e5afb9e8af9de6a186e5afb9e8b1a1"
+        style="margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; text-rendering: optimizelegibility; font-size: 1.2em;">
+        6. 实例化新的对话框对象</h3>
+<pre style="word-wrap: break-word;"><code class="language-js hljs javascript"
+                                          style="background-color: #D6DBDF; border: 0; border-radius: 4px; color: #4f424c; font-size: 90%; padding-top: 0.5em; padding-right: 0.5em; padding-bottom: 0.5em; padding-left: 0.5em; display: block; overflow-x: auto; background: #e7e9db; -webkit-text-size-adjust: none;">
+    <span class="hljs-keyword" style="color: #815ba4;">if</span> (!<span class="hljs-built_in" style="color: #f99b15;">window</span>.myDialog)
+    {
+    <span class="hljs-built_in" style="color: #f99b15;">    window</span>.myDialog = <span class="hljs-keyword"
+                                                                                       style="color: #815ba4;">new</span>
+        FreeDialog({
+            title: <span class="hljs-string" style="color: #48b685;">'自定义对话框'</span>,
+            content: [
+    <span class="hljs-string" style="color: #48b685;">            '这是一个自定义的对话框，点击周围可以关闭。'</span>,
+    <span class="hljs-built_in" style="color: #f99b15;">            document</span>.getElementById(<span class="hljs-string"
+                                                                                             style="color: #48b685;">'tagContent'</span>)
+            ],
+            clickAroundClose: <span class="hljs-literal" style="color: #f99b15;">true</span>, <span class="hljs-comment"
+                                                                                            style="color: #776e71;">// 点击对话框周围可关闭该对话框</span>
+            skin: <span class="hljs-string" style="color: #48b685;">'skin-orange'</span> <span class="hljs-comment"
+                                                                                       style="color: #776e71;">// 默认皮肤</span>
+        });
+    }
+    <span class="hljs-built_in" style="color: #f99b15;">window</span>.myDialog.show();
+
+</code></pre>
+    <p><input id="btn6" type="button" value="点我看看"/></p>
+</div>
+
+<div style="display: none;">
+    <div id="tagContent" style="width: 180px; height: 40px; background: black; color: green;">
+        页面上某个HTML元素
+    </div>
+</div>
+
+<script>
+    document.getElementById('btn1').addEventListener('click', function () {
+        FreeDialog.tips('我马上会自动消失的。', 2000);
+    });
+    document.getElementById('btn2').addEventListener('click', function () {
+        FreeDialog.alert(['这是一条消息。', '点击确定才会消失。']);
+    });
+    document.getElementById('btn3').addEventListener('click', function () {
+        FreeDialog.ask('你确定要关闭这个对话框吗？',
+                function () {         // 点击确定键的回调函数
+                    FreeDialog.tips('关闭了。');
+                },
+                function () {         // 点击取消键的回调函数
+                    FreeDialog.tips('关闭被阻止。');
+                    return false;   // 返回false可阻止默认关闭行为
+                }
+        );
+    });
+    document.getElementById('btn4').addEventListener('click', function () {
+        FreeDialog.alertDialog.setSkin('skin-orange');
+        FreeDialog.alert('提示框变为黄色皮肤。');
+    });
+    document.getElementById('btn5').addEventListener('click', function () {
+        FreeDialog.askDialog.setTitle('用户调查');
+        FreeDialog.ask('请问您想要参与我们的用户调查吗？',
+                function () {
+                    FreeDialog.tips('好的，谢谢您的参与！');
+                },
+                function () {
+                    FreeDialog.tips('有点遗憾，那下次再会吧！');
+                }
+        );
+    });
+    document.getElementById('btn6').addEventListener('click', function () {
+        if (!window.myDialog) {
+            window.myDialog = new FreeDialog({
+                title: '自定义对话框',
+                content: [
+                    '这是一个自定义的对话框，点击周围可以关闭。',
+                    document.getElementById('tagContent')
+                ],
+                clickAroundClose: true,     // 点击对话框周围可关闭该对话框
+                skin: 'skin-orange'         // 默认皮肤
+            });
+        }
+        window.myDialog.show();
+    });
+</script>
+</body>
+</html>

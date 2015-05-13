@@ -1,0 +1,204 @@
+﻿// 清除浮动用%placeholder
+%clearfix {
+    & {
+        *zoom: 1;
+    }
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+        overflow: hidden;
+    }
+}
+
+// 清除列表默认样式
+%listStyle {
+    margin: 0;
+    padding: 0;
+    list-style: none outside none;
+}
+
+$prefix-for-webkit: true !default;
+$prefix-for-mozilla: true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera: true !default;
+$prefix-for-spec: true !default;
+
+//浏览器前缀
+@mixin prefixer($property, $value, $prefixes) {
+    @each $prefix in $prefixes {
+        @if $prefix == webkit and $prefix-for-webkit == true {
+            -webkit-#{$property}: $value;
+        } @else if $prefix == moz and $prefix-for-mozilla == true {
+            -moz-#{$property}: $value;
+        } @else if $prefix == ms and $prefix-for-microsoft == true {
+            -ms-#{$property}: $value;
+        } @else if $prefix == o and $prefix-for-opera == true {
+            -o-#{$property}: $value;
+        } @else if $prefix == spec and $prefix-for-spec == true {
+            #{$property}: $value;
+        } @else {
+            @warn "Unrecognized prefix: #{$prefix}";
+        }
+    }
+}
+
+@mixin keyframes($name) {
+    @keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-o-keyframes #{$name} {
+        @content;
+    }
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+}
+
+@function checkTransitionValuePrefix($value, $prefix) {
+    @if ($value == transform) {
+        @return -#{$prefix}-#{$value};
+    } @else {
+        @return #{$value};
+    }
+}
+
+@function prefixerForTransitionValue($values, $prefix) {
+    @for $i from 1 through length($values) {
+        $value: nth($values, $i);
+        @if (length($value) == 1) {
+            // 检查: tranform 100ms time; 的情况
+            $values: set-nth($values, $i, checkTransitionValuePrefix($value, $prefix));
+        } @else {
+            // 检查: (tranform 100ms time, opacity); 的情况
+            $value: set-nth($value, 1, checkTransitionValuePrefix(nth($value, 1), $prefix));
+            $values: set-nth($values, $i, $value);
+        }
+    }
+    @return $values;
+}
+
+@mixin transition($values...) {
+    $prefixes: (webkit moz ms o spec);
+    @each $prefix in $prefixes {
+        @if $prefix == webkit and $prefix-for-webkit == true {
+            -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+        } @else if $prefix == moz and $prefix-for-mozilla == true {
+            -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+        } @else if $prefix == ms and $prefix-for-microsoft == true {
+            -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+        } @else if $prefix == o and $prefix-for-opera == true {
+            -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+        } @else if $prefix == spec and $prefix-for-spec == true {
+            transition: $values;
+        } @else {
+            @warn "Unrecognized prefix: #{$prefix}";
+        }
+    }
+}
+
+@mixin transform($values...) {
+    @include prefixer(transform, $values, webkit moz ms o spec);
+}
+
+@mixin display-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin flex-wrap($value) {
+    @if ($value == nowrap) {
+        -webkit-box-lines: single;
+    } @else if ($value == wrap) {
+        -webkit-box-lines: multiple;
+    }
+    -webkit-flex-wrap: $value;
+    flexwrap: $value;
+}
+
+@mixin justify-content($value) {
+    @if ($value == flex-start) {
+        -webkit-box-pack: start;
+    } @else if ($value == center) {
+        -webkit-box-pack: center;
+    } @else if ($value == flex-end) {
+        -webkit-box-pack: end;
+    } @else if ($value == space-between) {
+        -webkit-box-pack: justify;
+    }
+    -webkit-justify-content: $value;
+    justify-content: $value;
+}
+
+@mixin align-items($value) {
+    @if ($value == flex-start) {
+        -webkit-box-align: start;
+    } @else if ($value == center) {
+        -webkit-box-align: center;
+    } @else if ($value == flex-end) {
+        -webkit-box-align: end;
+    } @else if ($value == baseline) {
+        -webkit-box-align: baseline;
+    } @else if ($value == stretch) {
+        -webkit-box-align: stretch;
+    }
+    -webkit-align-items: $value;
+    align-items: $value;
+}
+
+@mixin flex($value: 1) {
+    display: block;
+    -webkit-box-flex: $value;
+    -webkit-flex: $value;
+    flex: $value;
+}
+
+$baseFontSize: 10px !default;
+
+html {
+    font-size: $baseFontSize;
+}
+
+body {
+    font-size: $baseFontSize*1.4;
+}
+
+@function stripUnits($number) {
+    @return $number / ($number * 0 + 1);
+}
+
+@function px2rem($sizes) {
+    $result: '';
+
+    @each $size in $sizes {
+        $rem: $size;
+        @if $result != '' {
+            $result: $result + ' ';
+        }
+
+        @if type_of($size) == number {
+            $rem: stripUnits($size / $baseFontSize) + rem;
+        }
+
+        $result: $result + $rem;
+    }
+
+    //$result : $result + ' ' + '/*#{$sizes}*/';
+    @return unquote($result);
+}
+
+@mixin txt-height($height) {
+    height: $height;
+    line-height: $height;
+}
+
+@mixin txt-rem-height($height) {
+    @include txt-height(px2rem($height));
+}
