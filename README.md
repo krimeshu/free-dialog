@@ -74,19 +74,19 @@ FreeDialog.ask('你确定要关闭这个对话框吗？',
 
 ```js
 var options = {
-	title: '提示',			// 对话框标题（可缺省，缺省时默认不显示标题栏）
-	content: '对话框内容',	// 对话框内的文本内容、DOM或两者的数组
-	footBtns: {				// 底部按键对象或数组（可缺省，缺省时不显示底部按键栏）
-		name: '确定',			// 按键文本内容
-		extraClass: null,		// 按键额外的CSS Class（可缺省）
-		click: function (e) {}	// 按键点击时的回调函数（函数内this指向当前FreeDialog对象）
+	title: '提示',                          // 对话框标题（可缺省，缺省时默认不显示标题栏）
+	content: '对话框内容',                  // 对话框内的文本内容、DOM或两者的数组
+	footBtns: {                             // 底部按键对象或数组（可缺省，缺省时不显示底部按键栏）
+		name: '确定',                   // 按键文本内容
+		extraClass: null,               // 按键额外的CSS Class（可缺省）
+		click: function (e) {}          // 按键点击时的回调函数（函数内this指向当前FreeDialog对象）
 	},
-	lock: true,				// 对话框出现时是否显示底部黑色遮罩，并阻止拖动屏幕操作（可缺省，默认为true）
-	withCloseBtn: true,		// 右上角是否显示关闭键（可缺省，默认为true）
-	clickAroundClose: true,	// 点击对话框四周是否关闭对话框（可缺省，默认为false）
-	skin: 'skin-orange'		// 默认皮肤的className（可缺省）
+	lock: true,                             // 对话框出现时是否显示底部黑色遮罩，并阻止拖动屏幕操作（可缺省，默认为true）
+	withCloseBtn: true,                     // 右上角是否显示关闭键（可缺省，默认为true）
+	clickAroundClose: true,                 // 点击对话框四周是否关闭对话框（可缺省，默认为false）
+	skin: 'skin-orange'                     // 默认皮肤的className（可缺省）
 };
-var dialog = new FreeDialog(options);		// 实例化对话框对象
+var dialog = new FreeDialog(options);           // 实例化对话框对象
 ```
 
 ### 2. 修改对话框对象的属性
@@ -95,26 +95,26 @@ var dialog = new FreeDialog(options);		// 实例化对话框对象
 
 ```js
 // 关闭按键相关
-dialog.hideCloseBtn();				// 隐藏对话框关闭按键
-dialog.showCloseBtn();				// 显示对话框关闭按键
+dialog.hideCloseBtn();                          // 隐藏对话框关闭按键
+dialog.showCloseBtn();                          // 显示对话框关闭按键
 ```
 
 ```js
 // 背景遮罩相关
-dialog.lock();						// 锁定对话框背景遮罩
-dialog.unblock();					// 解除对话框背景遮罩
+dialog.lock();                                  // 锁定对话框背景遮罩
+dialog.unblock();                               // 解除对话框背景遮罩
 ```
 
 ```js
 // 标题相关
-dialog.setTitle('新的标题');		// 修改对话框标题文本内容
-dialog.hideTitle();					// 隐藏对话框标题栏
-dialog.showTitle();					// 显示对话框标题栏
+dialog.setTitle('新的标题');                    // 修改对话框标题文本内容
+dialog.hideTitle();                             // 隐藏对话框标题栏
+dialog.showTitle();                             // 显示对话框标题栏
 ```
 
 ```js
 // 内容相关
-dialog.setContent('新的内容');		// 修改对话框内容，与初始化时一样，可为需要设置的文本内容、DOM或两者的数组
+dialog.setContent('新的内容');                  // 修改对话框内容，与初始化时一样，可为需要设置的文本内容、DOM或两者的数组
 ```
 
 ```js
@@ -130,21 +130,21 @@ var newBtns = [
 	}
 ];
 
-dialog.setFootBtns(newBtns);		// 修改对话框底部按键
-dialog.hideFooter();				// 隐藏对话框底栏和内部按键
-dialog.showFooter();				// 显示对话框底栏和内部按键
+dialog.setFootBtns(newBtns);                    // 修改对话框底部按键
+dialog.hideFooter();                            // 隐藏对话框底栏和内部按键
+dialog.showFooter();                            // 显示对话框底栏和内部按键
 ```
 
 ```js
 // 皮肤相关
-dialog.setSkin();					// 设置对话框皮肤（为空时撤销现有皮肤）
+dialog.setSkin();                               // 设置对话框皮肤（为空时撤销现有皮肤）
 ```
 
 ```js
 // 呼出显示、收起关闭相关
-dialog.show();						// 呼出显示对话框
+dialog.show();                                  // 呼出显示对话框
 window.setTimeout(function(){
-	dialog.close();					// 收起关闭对话框
+	dialog.close();                         // 收起关闭对话框
 }, 3000);
 ```
 
@@ -376,5 +376,6 @@ FreeDialog.ask = function (content, yesCallback, noCallback) {
       background-color: #F6F6F6; }
 ```
 
-> Edit at: 2015/05/12
-> Version: 1.1
+> Edit at: 2015/05/13
+> 
+> Version: 1.2
