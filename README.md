@@ -208,7 +208,7 @@ FreeDialog.tips = function (content, time) {
         }, time);
     }
 };
-FreeDialog.on('beforeclose', function(){
+FreeDialog.tipsDialog.on('beforeclose', function(){
     // 手动关闭对话框时清除已有定时器
     if (FreeDialog.tipsDialog._closeTimeout) {
         window.clearTimeout(FreeDialog.tipsDialog._closeTimeout);
