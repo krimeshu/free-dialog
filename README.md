@@ -137,6 +137,7 @@ dialog.showFooter();                            // 显示对话框底栏和内�
 
 ```js
 // 皮肤相关
+dialog.setSkin('skin-orange');
 dialog.setSkin();                               // 设置对话框皮肤（为空时撤销现有皮肤）
 ```
 
@@ -195,24 +196,26 @@ FreeDialog.tipsDialog = new FreeDialog({
  * @param time 自动消失的时间（毫秒，缺省时为2000毫秒）
  */
 FreeDialog.tips = function (content, time) {
+    var _this = FreeDialog.tipsDialog;
+
     time = time === undefined ? 2000 : time;
-    FreeDialog.tipsDialog.setContent(content);
-    FreeDialog.tipsDialog.show(time);
+    _this.setContent(content);
+    _this.show(time);
     if (typeof(time) == 'number' && time > 0) {
-        if (FreeDialog.tipsDialog._closeTimeout) {
-            window.clearTimeout(FreeDialog.tipsDialog._closeTimeout);
+        if (_this._closeTimeout) {
+            window.clearTimeout(_this._closeTimeout);
         }
-        FreeDialog.tipsDialog._closeTimeout = window.setTimeout(function () {
-            FreeDialog.tipsDialog._closeTimeout = null;
-            FreeDialog.tipsDialog.close();
+        _this._closeTimeout = window.setTimeout(function () {
+            _this._closeTimeout = null;
+            _this.close();
         }, time);
     }
 };
-FreeDialog.tipsDialog.on('beforeclose', function(){
+FreeDialog.tipsDialog.on('beforeclose', function () {
     // 手动关闭对话框时清除已有定时器
-    if (FreeDialog.tipsDialog._closeTimeout) {
-        window.clearTimeout(FreeDialog.tipsDialog._closeTimeout);
-        FreeDialog.tipsDialog._closeTimeout = null;
+    if (this._closeTimeout) {
+        window.clearTimeout(this._closeTimeout);
+        this._closeTimeout = null;
     }
 });
 
@@ -226,7 +229,7 @@ FreeDialog.alertDialog = new FreeDialog({
         {
             name: '确定',
             click: function () {
-                FreeDialog.alertDialog.close();
+                this.close();
             }
         }
     ],
@@ -235,10 +238,16 @@ FreeDialog.alertDialog = new FreeDialog({
 /**
  * 弹出一个带有确定键的对话框，点击确定后对话框关闭
  * @param content 对话框内的文本内容、DOM或二者的数组
+ * @param title 对话框的标题（可缺省，缺省时不修改标题）
  */
-FreeDialog.alert = function (content) {
-    FreeDialog.alertDialog.setContent(content);
-    FreeDialog.alertDialog.show(null);
+FreeDialog.alert = function (content, title) {
+    var _this = FreeDialog.alertDialog;
+
+    _this.setContent(content);
+    if (title) {
+        _this.setTitle(title);
+    }
+    _this.show(null);
 };
 
 /**
@@ -252,8 +261,8 @@ FreeDialog.askDialog = new FreeDialog({
             name: '取消',
             extraClass: 'nagtive',
             click: function (e) {
-                if (typeof(FreeDialog.askDialog.noCallback) == 'function') {
-                    if (FreeDialog.askDialog.noCallback.apply(this, [e]) === false) {
+                if (typeof(this.noCallback) == 'function') {
+                    if (this.noCallback.apply(this, [e]) === false) {
                         return;
                     }
                 }
@@ -264,8 +273,8 @@ FreeDialog.askDialog = new FreeDialog({
             name: '确定',
             extraClass: 'positive',
             click: function (e) {
-                if (typeof(FreeDialog.askDialog.yesCallback) == 'function') {
-                    if (FreeDialog.askDialog.yesCallback.apply(this, [e]) === false) {
+                if (typeof(this.yesCallback) == 'function') {
+                    if (this.yesCallback.apply(this, [e]) === false) {
                         return;
                     }
                 }
@@ -278,21 +287,32 @@ FreeDialog.askDialog = new FreeDialog({
 FreeDialog.askDialog.on('beforeclose', function (e) {
     // 关闭对话框前检查回调函数是否阻止关闭
     if (e && e.target && e.target.hasAttribute('closeBtn') &&
-        typeof(FreeDialog.askDialog.noCallback) == 'function') {
-        return FreeDialog.askDialog.noCallback.apply(this, [e]);
+        typeof(this.noCallback) == 'function') {
+        return this.noCallback.apply(this, [e]);
     }
 });
 /**
  * 弹出一个带有确定键的对话框，点击确定或取消后执行对应回调函数
  * @param content 对话框内的文本内容、DOM或二者的数组
+ * @param title 对话框的标题（可缺省，缺省时不修改标题）
  * @param yesCallback 点击确定时的回调函数
  * @param noCallback 点击取消时的回调函数
  */
-FreeDialog.ask = function (content, yesCallback, noCallback) {
-    FreeDialog.askDialog.setContent(content);
-    FreeDialog.askDialog.yesCallback = yesCallback;
-    FreeDialog.askDialog.noCallback = noCallback;
-    FreeDialog.askDialog.show(null);
+FreeDialog.ask = function (content, title, yesCallback, noCallback) {
+    var _this = FreeDialog.askDialog;
+    if (arguments.length == 3) {
+        yesCallback = arguments[1];
+        noCallback = arguments[2];
+        title = null;
+    }
+
+    _this.setContent(content);
+    _this.yesCallback = yesCallback;
+    _this.noCallback = noCallback;
+    if (title) {
+        _this.setTitle(title);
+    }
+    _this.show(null);
 };
 ```
 
@@ -376,6 +396,6 @@ FreeDialog.ask = function (content, yesCallback, noCallback) {
       background-color: #F6F6F6; }
 ```
 
-> Edit at: 2015/05/13
+> Edit at: 2015/05/14
 > 
-> Version: 1.2
+> Version: 1.32
