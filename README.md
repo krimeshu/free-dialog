@@ -235,18 +235,23 @@ FreeDialog.alertDialog = new FreeDialog({
     ],
     lock: true
 });
+FreeDialog.alertDialog.on('beforeclose', function (e) {
+    if (typeof(this.closeCallbak) == 'function') {
+        return this.closeCallbak.apply(this, [e]);
+    }
+});
 /**
  * 弹出一个带有确定键的对话框，点击确定后对话框关闭
  * @param content 对话框内的文本内容、DOM或二者的数组
- * @param title 对话框的标题（可缺省，缺省时不修改标题）
+ * @param title 对话框的标题（可缺省）
+ * @param closeCallbak 关闭对话框时的回调函数（可缺省，只在当次调用时有效）
  */
-FreeDialog.alert = function (content, title) {
+FreeDialog.alert = function (content, title, closeCallback) {
     var _this = FreeDialog.alertDialog;
 
     _this.setContent(content);
-    if (title) {
-        _this.setTitle(title);
-    }
+    _this.setTitle(title || '提示');
+    _this.closeCallbak = closeCallback;
     _this.show(null);
 };
 
@@ -294,7 +299,7 @@ FreeDialog.askDialog.on('beforeclose', function (e) {
 /**
  * 弹出一个带有确定键的对话框，点击确定或取消后执行对应回调函数
  * @param content 对话框内的文本内容、DOM或二者的数组
- * @param title 对话框的标题（可缺省，缺省时不修改标题）
+ * @param title 对话框的标题（可缺省）
  * @param yesCallback 点击确定时的回调函数
  * @param noCallback 点击取消时的回调函数
  */
@@ -306,12 +311,10 @@ FreeDialog.ask = function (content, title, yesCallback, noCallback) {
         title = null;
     }
 
+    _this.setTitle(title || '提示');
     _this.setContent(content);
     _this.yesCallback = yesCallback;
     _this.noCallback = noCallback;
-    if (title) {
-        _this.setTitle(title);
-    }
     _this.show(null);
 };
 ```
@@ -396,6 +399,6 @@ FreeDialog.ask = function (content, title, yesCallback, noCallback) {
       background-color: #F6F6F6; }
 ```
 
-> Edit at: 2015/05/14
+> Edit at: 2015/05/15
 > 
-> Version: 1.32
+> Version: 1.33

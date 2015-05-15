@@ -1,6 +1,6 @@
 /**
- * Created by Grayson Rex on 2015/5/8.
- * Version: 1.2
+ * Created by Grayson Rex on 2015/5/13.
+ * Version: 1.33
  */
 
 /* 简单弹窗类 ST */
@@ -357,6 +357,22 @@
 
     window['FreeDialog'] = FreeDialog;
 
+    // DOM尚未创建时延时处理
+    FreeDialog.tips = function (content, time) {
+        window.setTimeout(function () {
+            FreeDialog.tips(content, time);
+        }, 100);
+    }
+    FreeDialog.alert = function (content, title) {
+        window.setTimeout(function () {
+            FreeDialog.alert(content, title);
+        }, 100);
+    };
+    FreeDialog.ask = function (content, title, yesCallback, noCallback) {
+        window.setTimeout(function () {
+            FreeDialog.tips(content, title, yesCallback, noCallback);
+        }, 100);
+    };
 
     // 创建内置的常用对话框
     function creatBuiltInDialogs() {
@@ -375,24 +391,26 @@
          * @param time 自动消失的时间（毫秒，缺省时为2000毫秒）
          */
         FreeDialog.tips = function (content, time) {
+            var _this = FreeDialog.tipsDialog;
+
             time = time === undefined ? 2000 : time;
-            FreeDialog.tipsDialog.setContent(content);
-            FreeDialog.tipsDialog.show(time);
+            _this.setContent(content);
+            _this.show(time);
             if (typeof(time) == 'number' && time > 0) {
-                if (FreeDialog.tipsDialog._closeTimeout) {
-                    window.clearTimeout(FreeDialog.tipsDialog._closeTimeout);
+                if (_this._closeTimeout) {
+                    window.clearTimeout(_this._closeTimeout);
                 }
-                FreeDialog.tipsDialog._closeTimeout = window.setTimeout(function () {
-                    FreeDialog.tipsDialog._closeTimeout = null;
-                    FreeDialog.tipsDialog.close();
+                _this._closeTimeout = window.setTimeout(function () {
+                    _this._closeTimeout = null;
+                    _this.close();
                 }, time);
             }
         };
-        FreeDialog.tipsDialog.on('beforeclose', function(){
+        FreeDialog.tipsDialog.on('beforeclose', function () {
             // 手动关闭对话框时清除已有定时器
-            if (FreeDialog.tipsDialog._closeTimeout) {
-                window.clearTimeout(FreeDialog.tipsDialog._closeTimeout);
-                FreeDialog.tipsDialog._closeTimeout = null;
+            if (this._closeTimeout) {
+                window.clearTimeout(this._closeTimeout);
+                this._closeTimeout = null;
             }
         });
 
@@ -406,19 +424,30 @@
                 {
                     name: '确定',
                     click: function () {
-                        FreeDialog.alertDialog.close();
+                        this.close();
                     }
                 }
             ],
             lock: true
         });
+        FreeDialog.alertDialog.on('beforeclose', function (e) {
+            if (typeof(this.closeCallbak) == 'function') {
+                return this.closeCallbak.apply(this, [e]);
+            }
+        });
         /**
          * 弹出一个带有确定键的对话框，点击确定后对话框关闭
          * @param content 对话框内的文本内容、DOM或二者的数组
+         * @param title 对话框的标题（可缺省）
+         * @param closeCallbak 关闭对话框时的回调函数（可缺省，只在当次调用时有效）
          */
-        FreeDialog.alert = function (content) {
-            FreeDialog.alertDialog.setContent(content);
-            FreeDialog.alertDialog.show(null);
+        FreeDialog.alert = function (content, title, closeCallback) {
+            var _this = FreeDialog.alertDialog;
+
+            _this.setContent(content);
+            _this.setTitle(title || '提示');
+            _this.closeCallbak = closeCallback;
+            _this.show(null);
         };
 
         /**
@@ -432,8 +461,8 @@
                     name: '取消',
                     extraClass: 'nagtive',
                     click: function (e) {
-                        if (typeof(FreeDialog.askDialog.noCallback) == 'function') {
-                            if (FreeDialog.askDialog.noCallback.apply(this, [e]) === false) {
+                        if (typeof(this.noCallback) == 'function') {
+                            if (this.noCallback.apply(this, [e]) === false) {
                                 return;
                             }
                         }
@@ -444,8 +473,8 @@
                     name: '确定',
                     extraClass: 'positive',
                     click: function (e) {
-                        if (typeof(FreeDialog.askDialog.yesCallback) == 'function') {
-                            if (FreeDialog.askDialog.yesCallback.apply(this, [e]) === false) {
+                        if (typeof(this.yesCallback) == 'function') {
+                            if (this.yesCallback.apply(this, [e]) === false) {
                                 return;
                             }
                         }
@@ -458,21 +487,30 @@
         FreeDialog.askDialog.on('beforeclose', function (e) {
             // 关闭对话框前检查回调函数是否阻止关闭
             if (e && e.target && e.target.hasAttribute('closeBtn') &&
-                typeof(FreeDialog.askDialog.noCallback) == 'function') {
-                return FreeDialog.askDialog.noCallback.apply(this, [e]);
+                typeof(this.noCallback) == 'function') {
+                return this.noCallback.apply(this, [e]);
             }
         });
         /**
          * 弹出一个带有确定键的对话框，点击确定或取消后执行对应回调函数
          * @param content 对话框内的文本内容、DOM或二者的数组
+         * @param title 对话框的标题（可缺省）
          * @param yesCallback 点击确定时的回调函数
          * @param noCallback 点击取消时的回调函数
          */
-        FreeDialog.ask = function (content, yesCallback, noCallback) {
-            FreeDialog.askDialog.setContent(content);
-            FreeDialog.askDialog.yesCallback = yesCallback;
-            FreeDialog.askDialog.noCallback = noCallback;
-            FreeDialog.askDialog.show(null);
+        FreeDialog.ask = function (content, title, yesCallback, noCallback) {
+            var _this = FreeDialog.askDialog;
+            if (arguments.length == 3) {
+                yesCallback = arguments[1];
+                noCallback = arguments[2];
+                title = null;
+            }
+
+            _this.setTitle(title || '提示');
+            _this.setContent(content);
+            _this.yesCallback = yesCallback;
+            _this.noCallback = noCallback;
+            _this.show(null);
         };
     }
 
