@@ -11,8 +11,8 @@
 
 ```js
 /**
- * FreeDialog.tips(content, time);
- * 弹出一个没有标题栏也没有底部按键的气泡框，一段时间后自动消失
+ * FreeDialog.tips(content, [time]);
+ * 弹出一个没有标题栏也没有底部按键的气泡对话框，一段时间后自动消失
  * @param content 气泡内的文本内容、DOM或二者的数组
  * @param time 自动消失的时间（毫秒，缺省时为2000毫秒）
  */
@@ -28,17 +28,24 @@ FreeDialog.tips(['三秒后我会自动关闭', '这是第二行内容'], 3000);
 
 ```js
 /**
- * FreeDialog.alert(content);
- * 弹出一个带有确定键的对话框，点击确定后对话框关闭
+ * FreeDialog.alert(content, [title, closeCallback]);
+ * 弹出一个带有确定键的提示对话框，点击确定后提示框关闭
  * @param content 对话框内的文本内容、DOM或二者的数组
+ * @param title 对话框的标题（可缺省）
+ * @param closeCallbak 关闭对话框时的回调函数（可缺省，只在当次调用时有效）
  */
  
-// 例3：弹出一个对话框，点击确定或右上角X键可关闭
+// 例3：弹出一个提示框，点击确定或右上角X键可关闭
 FreeDialog.alert('点击确定可以关闭');
 
-// 例4：弹出一个对话框，其中第一行为文本，第二行为页面上某个元素
+// 例4：弹出一个提示框，关闭后刷新页面
+FreeDialog.alert('关闭对话框后将刷新页面', '提示', function () {
+    window.location.reload();
+});
+
+// 例5：弹出一个自定义标题的提示框，内容中第一行为文本，第二行为页面上某个元素
 var dom = document.getElementById('something');
-FreeDialog.alert(['你好啊！', dom]);
+FreeDialog.alert(['你好啊！', dom], '自定义的标题');
 ```
 
 ### 3. `FreeDialog.askDialog`的使用
@@ -46,13 +53,13 @@ FreeDialog.alert(['你好啊！', dom]);
 ```js
 /**
  * FreeDialog.ask(content, yesCallback, noCallback);
- * 弹出一个带有确定键的对话框，点击确定或取消后执行对应回调函数
+ * 弹出一个带有确定和取消键的询问对话框，点击确定或取消后执行对应回调函数
  * @param content 对话框内的文本内容、DOM或二者的数组
  * @param yesCallback 点击确定时的回调函数
  * @param noCallback 点击取消时的回调函数
  */
 
-// 例5：弹出一个询问框，点取消时阻止关闭，点确定时才可关闭
+// 例6：弹出一个询问框，点取消时阻止关闭，点确定时才可关闭
 FreeDialog.ask('你确定要关闭这个对话框吗？', 
     function(){         // 点击确定键的回调函数
         FreeDialog.tips('关闭了。');
