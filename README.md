@@ -334,7 +334,7 @@ FreeDialog.ask = function (content, title, yesCallback, noCallback) {
     &.skin-orange {
         .dialog-btn {
             &[closeBtn] {
-                background: transparent url(...) no-repeat scroll center center;
+                background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1QjEzMDEzOTA2RjVFMzExQTA4NERCRDIxMDNGQUE4QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2QzkyQzEzMUY2MjYxMUU0OTQxNDlFNjE2MUNGRDIxMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2QzkyQzEzMEY2MjYxMUU0OTQxNDlFNjE2MUNGRDIxMSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQxMUI1MTdEN0VGNUU0MTFBRjgyRkYwQkI0OTUyNjVBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVCMTMwMTM5MDZGNUUzMTFBMDg0REJEMjEwM0ZBQThCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+JcN5CQAAANNJREFUeNqsk00KwjAQhSfFtXcRPIhHEQ+giHtLde+VPIvuJb5BFyHk5yWTgdfQNP0+Cn3Oe78TkQ1yknHjkCuynnDZIkdkHghfkD3yFnyBQ2b/G13FEGXd/ixdXfjQKlH4PYTrfnyoV5KEpwQ9kiw8J2iRFOElASOpwmuCkoSCM4KUhIazglhCw1sEoYSGa6aG+q+C+w/iqTc7/vOmnvSWiJZYSkRJxFIiRmKBUxIrvCoZAS9KRsGzkpHwpCTcGAGPJRcFPlDoF3Kg68/NGXl+BRgAthr/1T40nrQAAAAASUVORK5CYII=) no-repeat scroll center center;
                 background-size: 12px 12px;
                 &:active, &.active {
                     background-color: rgba(black, 0.1);
@@ -372,33 +372,41 @@ FreeDialog.ask = function (content, title, yesCallback, noCallback) {
 
 ```css
 /* CSS代码 */
-  .dialog-wrapper.skin-bubble .dialog-container {
+.dialog-wrapper.skin-bubble .dialog-container {
     border: 1px solid #EDECEC;
     -webkit-box-shadow: 0 2px 5px #999999;
-    box-shadow: 0 2px 5px #999999; }
-  .dialog-wrapper.skin-orange .dialog-btn[closeBtn] {
-    background: transparent url(...) no-repeat scroll center center;
-    background-size: 12px 12px; }
-    .dialog-wrapper.skin-orange .dialog-btn[closeBtn]:active, .dialog-wrapper.skin-orange .dialog-btn[closeBtn].active {
-      background-color: rgba(0, 0, 0, 0.1); }
-  .dialog-wrapper.skin-orange .dialog-header {
+    box-shadow: 0 2px 5px #999999;
+}
+.dialog-wrapper.skin-orange .dialog-btn[closeBtn] {
+    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1QjEzMDEzOTA2RjVFMzExQTA4NERCRDIxMDNGQUE4QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2QzkyQzEzMUY2MjYxMUU0OTQxNDlFNjE2MUNGRDIxMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2QzkyQzEzMEY2MjYxMUU0OTQxNDlFNjE2MUNGRDIxMSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQxMUI1MTdEN0VGNUU0MTFBRjgyRkYwQkI0OTUyNjVBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVCMTMwMTM5MDZGNUUzMTFBMDg0REJEMjEwM0ZBQThCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+JcN5CQAAANNJREFUeNqsk00KwjAQhSfFtXcRPIhHEQ+giHtLde+VPIvuJb5BFyHk5yWTgdfQNP0+Cn3Oe78TkQ1yknHjkCuynnDZIkdkHghfkD3yFnyBQ2b/G13FEGXd/ixdXfjQKlH4PYTrfnyoV5KEpwQ9kiw8J2iRFOElASOpwmuCkoSCM4KUhIazglhCw1sEoYSGa6aG+q+C+w/iqTc7/vOmnvSWiJZYSkRJxFIiRmKBUxIrvCoZAS9KRsGzkpHwpCTcGAGPJRcFPlDoF3Kg68/NGXl+BRgAthr/1T40nrQAAAAASUVORK5CYII=) no-repeat scroll center center;
+    background-size: 12px 12px;
+}
+.dialog-wrapper.skin-orange .dialog-btn[closeBtn]:active, .dialog-wrapper.skin-orange .dialog-btn[closeBtn].active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.dialog-wrapper.skin-orange .dialog-header {
     height: 46px;
     line-height: 46px;
     padding: 0;
     background-color: #EF713D;
     font-size: 15px;
     text-align: center;
-    color: white; }
-  .dialog-wrapper.skin-orange .dialog-body {
-    padding: 28px 32px; }
-  .dialog-wrapper.skin-orange .dialog-footer .dialog-btn {
-    color: #EB662D; }
-    .dialog-wrapper.skin-orange .dialog-footer .dialog-btn.nagtive {
-      color: #999999; }
-    .dialog-wrapper.skin-orange .dialog-footer .dialog-btn:active, .dialog-wrapper.skin-orange .dialog-footer .dialog-btn.active {
-      background-color: #F6F6F6; }
+    color: white;
+}
+.dialog-wrapper.skin-orange .dialog-body {
+    padding: 28px 32px;
+}
+.dialog-wrapper.skin-orange .dialog-footer .dialog-btn {
+    color: #EB662D;
+}
+.dialog-wrapper.skin-orange .dialog-footer .dialog-btn.nagtive {
+    color: #999999;
+}
+.dialog-wrapper.skin-orange .dialog-footer .dialog-btn:active, .dialog-wrapper.skin-orange .dialog-footer .dialog-btn.active {
+    background-color: #F6F6F6;
+}
 ```
 
-> Edit at: 2015/05/15
+> Edit at: 2015/05/20
 > 
-> Version: 1.33
+> Version: 1.34
