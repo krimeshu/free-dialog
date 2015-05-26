@@ -501,8 +501,8 @@
         FreeDialog.ask = function (content, title, yesCallback, noCallback) {
             var _this = FreeDialog.askDialog;
             if (arguments.length == 3) {
-                yesCallback = arguments[1];
                 noCallback = arguments[2];
+                yesCallback = arguments[1];
                 title = null;
             }
 
