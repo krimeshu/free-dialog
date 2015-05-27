@@ -423,8 +423,8 @@
             footBtns: [
                 {
                     name: '确定',
-                    click: function () {
-                        this.close();
+                    click: function (e) {
+                        this.close(e);
                     }
                 }
             ],
