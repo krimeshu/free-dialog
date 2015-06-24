@@ -1,0 +1,66 @@
+@charset "utf-8";
+// 清除浮动用%placeholder
+%clearfix {
+  & {
+    *zoom: 1;
+  }
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+//伪类元素常用css
+%pseudo_abs {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+//多行文字換行
+@mixin multiline_ellipsis($lineCount) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $lineCount;
+  -webkit-box-orient: vertical;
+}
+
+/**
+* 以下为当前项目使用的通用样式
+*/
+
+//项目常用颜色
+$color_cec: #cecece;
+$color_666: #666666;
+$color_9a9: #9a9a9a;
+$color_ede: #ededed;
+$color_ccc: #ccc;
+$color_f1f: #f1f1f1;
+$color_343: #343434;
+$color_orange: #e65214;
+$color_white: #fff;
+
+//页面的边距值
+%page_padding {
+  padding-left: px2rem(30px);
+  padding-right: px2rem(30px);
+}
+
+%btn_active {
+  position: relative;
+  &::after {
+    @extend %pseudo_abs;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.1;
+    left: 0;
+    top: 0;
+  }
+}

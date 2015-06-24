@@ -1,196 +1,271 @@
 @import "_commons";
 
 .dialog-wrapper {
-    @include display-flex;
-    @include justify-content(center);
-    @include align-items(center);
-    @include prefixer(transform, translateZ(0), webkit spec);
+  @include display-flex;
+  @include justify-content(center);
+  @include align-items(center);
+  @include prefixer(transform, translateZ(0));
 
-    position: fixed;
-    z-index: 1000000;
+  position: fixed;
+  z-index: 1000000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+
+  -webkit-tap-highlight-color: transparent;
+
+  &.showed {
+    .dialog-cover {
+      opacity: 0.2;
+    }
+    .dialog-container {
+      @include prefixer(transform, scale(1));
+    }
+  }
+
+  &.preToShow, &.closing, &.closed {
+    .dialog-cover {
+      opacity: 0;
+    }
+    .dialog-container {
+      @include prefixer(transform, scale(0));
+    }
+  }
+
+  &.closed {
+    display: none;
+  }
+
+  .dialog-cover {
+    @include transition(opacity 200ms ease);
+
+    &.hide {
+      display: none;
+    }
+
+    position: absolute;
+    z-index: 1000001;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    font-size: 14px;
+    background-color: black;
+  }
+  .dialog-container {
+    @include transition(transform 200ms ease, opacity 200ms ease);
 
-    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1000002;
+    min-width: 160px;
+    margin: 0 24px;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+  }
 
-    &.showed {
-        .dialog-cover {
-            opacity: 0.2;
-        }
-        .dialog-container {
-            @include prefixer(transform, scale(1), webkit spec);
-        }
-    }
+  .dialog-btn {
+    &[closeBtn] {
+      display: block;
+      text-decoration: none;
+      border-radius: 0 5px 0 0;
 
-    &.preToShow, &.closing, &.closed {
-        .dialog-cover {
-            opacity: 0;
-        }
-        .dialog-container {
-            @include prefixer(transform, scale(0), webkit spec);
-        }
-    }
-
-    &.closed {
-        display: none;
-    }
-
-    .dialog-cover {
-        @include transition(opacity 200ms ease);
-
-        &.hide {
-            display: none;
-        }
-
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 46px;
+      height: 46px;
+      &:active, &.active {
+        background-color: rgba(black, 0.1);
+      }
+      &:before, &:after {
+        content: "";
+        display: block;
         position: absolute;
-        z-index: 1000001;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
         background-color: black;
+        width: 1px;
+        height: 20px;
+        top: 12px;
+        left: 24px;
+      }
+      &:before {
+        @include prefixer(transform, rotateZ(45deg));
+      }
+      &:after {
+        @include prefixer(transform, rotateZ(135deg));
+      }
     }
-    .dialog-container {
-        @include transition(transform 200ms ease, opacity 200ms ease);
+  }
 
-        position: relative;
-        z-index: 1000002;
-        min-width: 160px;
-        margin: 0 24px;
-        background-color: white;
-        border-radius: 5px;
-        overflow: hidden;
+  .dialog-header {
+    margin: 0;
+    padding: 15px 12px;
+    height: 16px;
+    line-height: 16px;
+    border-bottom: 1px solid #EDECEC;
+    border-radius: 5px 5px 0 0;
+  }
+  .dialog-body {
+    margin: 0;
+    padding: 15px 12px;
+    p {
+      margin: 2px 0;
+      word-break: break-all;
     }
+  }
+  .dialog-footer {
+    @include display-flex;
+
+    &.hide {
+      display: none;
+    }
+
+    border-top: 1px solid #EDECEC;
+    border-radius: 0 0 5px 5px;
 
     .dialog-btn {
-        &[closeBtn] {
-            display: block;
-            text-decoration: none;
-            border-radius: 0 5px 0 0;
+      @include flex(1);
 
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 46px;
-            height: 46px;
-            &:active, &.active {
-                background-color: rgba(black, 0.1);
-            }
-            &:before, &:after {
-                content: "";
-                display: block;
-                position: absolute;
-                background-color: black;
-                width: 1px;
-                height: 20px;
-                top: 12px;
-                left: 24px;
-            }
-            &:before {
-                @include prefixer(transform, rotateZ(45deg), webkit spec);
-            }
-            &:after {
-                @include prefixer(transform, rotateZ(135deg), webkit spec);
-            }
+      &:nth-child(1) {
+        border-radius: 0 0 0 5px;
+      }
+      &:nth-last-child(1) {
+        border-radius: 0 0 5px 0;
+      }
+      &:nth-child(n+2) {
+        border-left: 1px solid #EDECEC;
+      }
+      display: block;
+      text-decoration: none;
+
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+
+      &:active, &.active {
+        background-color: rgba(black, 0.1);
+      }
+    }
+  }
+
+  &.skin-bubble {
+    .dialog-container {
+      border: 1px solid #EDECEC;
+      @include prefixer(box-shadow, 0 2px 5px #999999);
+    }
+  }
+
+  &.skin-orange {
+    .dialog-btn {
+      &[closeBtn] {
+        &:active, &.active {
+          background-color: rgba(black, 0.1);
         }
+        &:before, &:after {
+          background-color: white;
+        }
+      }
     }
 
     .dialog-header {
-        margin: 0;
-        padding: 15px 12px;
-        height: 16px;
-        line-height: 16px;
-        border-bottom: 1px solid #EDECEC;
-        border-radius: 5px 5px 0 0;
+      height: 46px;
+      line-height: 46px;
+      padding: 0;
+      background-color: #EF713D;
+      font-size: 15px;
+      text-align: center;
+      color: white;
     }
     .dialog-body {
-        margin: 0;
-        padding: 15px 12px;
-        p {
-            margin: 2px 0;
-            word-break: break-all;
-        }
+      padding: 28px 32px;
     }
+
     .dialog-footer {
-        @include display-flex;
-
-        &.hide {
-            display: none;
+      .dialog-btn {
+        color: #EB662D;
+        &.negative {
+          color: #999999;
         }
-
-        border-top: 1px solid #EDECEC;
-        border-radius: 0 0 5px 5px;
-
-        .dialog-btn {
-            @include flex(1);
-
-            &:nth-child(1) {
-                border-radius: 0 0 0 5px;
-            }
-            &:nth-last-child(1) {
-                border-radius: 0 0 5px 0;
-            }
-            &:nth-child(n+2) {
-                border-left: 1px solid #EDECEC;
-            }
-            display: block;
-            text-decoration: none;
-
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-
-            &:active, &.active {
-                background-color: rgba(black, 0.1);
-            }
+        &:active, &.active {
+          background-color: #F6F6F6;
         }
+      }
+    }
+  }
+
+  &.skin-dark {
+    &.showed {
+      .dialog-cover {
+        opacity: 0.2;
+      }
+      .dialog-container {
+        opacity: 1;
+        @include prefixer(transform, translate3d(0, 0, 0));
+      }
     }
 
-    &.skin-bubble {
-        .dialog-container {
-            border: 1px solid #EDECEC;
-            @include prefixer(box-shadow, 0 2px 5px #999999, webkit spec);
-        }
+    &.preToShow, &.closing, &.closed {
+      .dialog-cover {
+        opacity: 0;
+      }
+      .dialog-container {
+        opacity: 0;
+        @include prefixer(transform, translate3d(0, -100%, 0));
+      }
     }
 
-    &.skin-orange {
-        .dialog-btn {
-            &[closeBtn] {
-                &:active, &.active {
-                    background-color: rgba(black, 0.1);
-                }
-                &:before, &:after {
-                    background-color: white;
-                }
-            }
-        }
-
-        .dialog-header {
-            height: 46px;
-            line-height: 46px;
-            padding: 0;
-            background-color: #EF713D;
-            font-size: 15px;
-            text-align: center;
-            color: white;
-        }
-        .dialog-body {
-            padding: 28px 32px;
-        }
-
-        .dialog-footer {
-            .dialog-btn {
-                color: #EB662D;
-                &.nagtive {
-                    color: #999999;
-                }
-                &:active, &.active {
-                    background-color: #F6F6F6;
-                }
-            }
-        }
+    &.closed {
+      display: none;
     }
+
+    @include align-items(flex-start);
+    .dialog-container {
+      margin-top: px2rem(100px);
+      min-width: px2rem(500px);
+      min-height: px2rem(100px);
+      @include prefixer(box-shadow, 0 0 px2rem(10px) #4D4D4D);
+      background-color: #282828;
+      color: #EDEDED;
+      font-size: px2rem(32px);
+      text-align: center;
+    }
+  }
+
+  &.skin-light {
+    .dialog-container {
+      @include prefixer(box-shadow, 0 0 px2rem(10px) #4D4D4D);
+    }
+
+    .dialog-header {
+      display: none !important;
+    }
+
+    .dialog-btn {
+      &[closeBtn] {
+        display: none !important;
+      }
+    }
+
+    .dialog-body {
+      padding: px2rem(90px 110px 80px 110px);
+      font-size: px2rem(28px);
+      color: #343434;
+    }
+
+    .dialog-footer {
+      .dialog-btn {
+        height: px2rem(88px);
+        line-height: px2rem(88px);
+        font-size: px2rem(32px);
+        color: #343434;
+        &.negative {
+          color: #FB8226;
+        }
+        &:active, &.active {
+          background-color: rgba(black, .1);
+        }
+      }
+    }
+  }
 }

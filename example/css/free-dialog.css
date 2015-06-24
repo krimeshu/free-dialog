@@ -1,9 +1,26 @@
+@charset "UTF-8";
 html {
   font-size: 10px; }
+
+html {
+  font-size: 5px;
+  overflow-x: hidden; }
+  @media screen and (min-width: 320px) {
+    html {
+      font-size: 9px; } }
+  @media screen and (min-width: 360px) {
+    html {
+      font-size: 10px; } }
+  @media screen and (min-width: 400px) {
+    html {
+      font-size: 11px; } }
 
 body {
   font-size: 14px; }
 
+/**
+* 以下为当前项目使用的通用样式
+*/
 .dialog-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -15,6 +32,9 @@ body {
   -webkit-align-items: center;
   align-items: center;
   -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
   transform: translateZ(0);
   position: fixed;
   z-index: 1000000;
@@ -28,11 +48,17 @@ body {
     opacity: 0.2; }
   .dialog-wrapper.showed .dialog-container {
     -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   .dialog-wrapper.preToShow .dialog-cover, .dialog-wrapper.closing .dialog-cover, .dialog-wrapper.closed .dialog-cover {
     opacity: 0; }
   .dialog-wrapper.preToShow .dialog-container, .dialog-wrapper.closing .dialog-container, .dialog-wrapper.closed .dialog-container {
     -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
     transform: scale(0); }
   .dialog-wrapper.closed {
     display: none; }
@@ -86,9 +112,15 @@ body {
       left: 24px; }
     .dialog-wrapper .dialog-btn[closeBtn]:before {
       -webkit-transform: rotateZ(45deg);
+      -moz-transform: rotateZ(45deg);
+      -ms-transform: rotateZ(45deg);
+      -o-transform: rotateZ(45deg);
       transform: rotateZ(45deg); }
     .dialog-wrapper .dialog-btn[closeBtn]:after {
       -webkit-transform: rotateZ(135deg);
+      -moz-transform: rotateZ(135deg);
+      -ms-transform: rotateZ(135deg);
+      -o-transform: rotateZ(135deg);
       transform: rotateZ(135deg); }
   .dialog-wrapper .dialog-header {
     margin: 0;
@@ -132,6 +164,9 @@ body {
   .dialog-wrapper.skin-bubble .dialog-container {
     border: 1px solid #EDECEC;
     -webkit-box-shadow: 0 2px 5px #999999;
+    -moz-box-shadow: 0 2px 5px #999999;
+    -ms-box-shadow: 0 2px 5px #999999;
+    -o-box-shadow: 0 2px 5px #999999;
     box-shadow: 0 2px 5px #999999; }
   .dialog-wrapper.skin-orange .dialog-btn[closeBtn]:active, .dialog-wrapper.skin-orange .dialog-btn[closeBtn].active {
     background-color: rgba(0, 0, 0, 0.1); }
@@ -149,9 +184,69 @@ body {
     padding: 28px 32px; }
   .dialog-wrapper.skin-orange .dialog-footer .dialog-btn {
     color: #EB662D; }
-    .dialog-wrapper.skin-orange .dialog-footer .dialog-btn.nagtive {
+    .dialog-wrapper.skin-orange .dialog-footer .dialog-btn.negative {
       color: #999999; }
     .dialog-wrapper.skin-orange .dialog-footer .dialog-btn:active, .dialog-wrapper.skin-orange .dialog-footer .dialog-btn.active {
       background-color: #F6F6F6; }
+  .dialog-wrapper.skin-dark {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start; }
+    .dialog-wrapper.skin-dark.showed .dialog-cover {
+      opacity: 0.2; }
+    .dialog-wrapper.skin-dark.showed .dialog-container {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      -ms-transform: translate3d(0, 0, 0);
+      -o-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
+    .dialog-wrapper.skin-dark.preToShow .dialog-cover, .dialog-wrapper.skin-dark.closing .dialog-cover, .dialog-wrapper.skin-dark.closed .dialog-cover {
+      opacity: 0; }
+    .dialog-wrapper.skin-dark.preToShow .dialog-container, .dialog-wrapper.skin-dark.closing .dialog-container, .dialog-wrapper.skin-dark.closed .dialog-container {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      -moz-transform: translate3d(0, -100%, 0);
+      -ms-transform: translate3d(0, -100%, 0);
+      -o-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0); }
+    .dialog-wrapper.skin-dark.closed {
+      display: none; }
+    .dialog-wrapper.skin-dark .dialog-container {
+      margin-top: 5rem;
+      min-width: 25rem;
+      min-height: 5rem;
+      -webkit-box-shadow: 0 0 0.5rem #4D4D4D;
+      -moz-box-shadow: 0 0 0.5rem #4D4D4D;
+      -ms-box-shadow: 0 0 0.5rem #4D4D4D;
+      -o-box-shadow: 0 0 0.5rem #4D4D4D;
+      box-shadow: 0 0 0.5rem #4D4D4D;
+      background-color: #282828;
+      color: #EDEDED;
+      font-size: 1.6rem;
+      text-align: center; }
+  .dialog-wrapper.skin-light .dialog-container {
+    -webkit-box-shadow: 0 0 0.5rem #4D4D4D;
+    -moz-box-shadow: 0 0 0.5rem #4D4D4D;
+    -ms-box-shadow: 0 0 0.5rem #4D4D4D;
+    -o-box-shadow: 0 0 0.5rem #4D4D4D;
+    box-shadow: 0 0 0.5rem #4D4D4D; }
+  .dialog-wrapper.skin-light .dialog-header {
+    display: none !important; }
+  .dialog-wrapper.skin-light .dialog-btn[closeBtn] {
+    display: none !important; }
+  .dialog-wrapper.skin-light .dialog-body {
+    padding: 4.5rem 5.5rem 4rem 5.5rem;
+    font-size: 1.4rem;
+    color: #343434; }
+  .dialog-wrapper.skin-light .dialog-footer .dialog-btn {
+    height: 4.4rem;
+    line-height: 4.4rem;
+    font-size: 1.6rem;
+    color: #343434; }
+    .dialog-wrapper.skin-light .dialog-footer .dialog-btn.negative {
+      color: #FB8226; }
+    .dialog-wrapper.skin-light .dialog-footer .dialog-btn:active, .dialog-wrapper.skin-light .dialog-footer .dialog-btn.active {
+      background-color: rgba(0, 0, 0, 0.1); }
 
 /*# sourceMappingURL=free-dialog.css.map */

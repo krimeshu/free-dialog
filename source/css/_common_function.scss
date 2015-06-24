@@ -1,0 +1,254 @@
+﻿$prefix-for-webkit: true !default;
+$prefix-for-mozilla: true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera: true !default;
+$prefix-for-spec: true !default;
+
+// 浏览器前缀
+// 例：@include prefixer(transform, translateZ(0), webkit spec);
+@mixin prefixer($property, $value, $prefixes: (webkit moz ms o spec)) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit and $prefix-for-webkit == true {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz and $prefix-for-mozilla == true {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms and $prefix-for-microsoft == true {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o and $prefix-for-opera == true {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec and $prefix-for-spec == true {
+      #{$property}: $value;
+    } @else {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// 动画帧自动加前缀
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-o-keyframes #{$name} {
+    @content;
+  }
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+}
+
+// 私有，勿调用
+@function checkTransitionValuePrefix($value, $prefix) {
+  @if ($value == transform) {
+    @return -#{$prefix}-#{$value};
+  } @else {
+    @return #{$value};
+  }
+}
+
+// 私有，勿调用
+@function prefixerForTransitionValue($values, $prefix) {
+  @for $i from 1 through length($values) {
+    $value: nth($values, $i);
+    @if (length($value) == 1) {
+      // 检查: tranform 100ms time; 的情况
+      $values: set-nth($values, $i, checkTransitionValuePrefix($value, $prefix));
+    } @else {
+      // 检查: (tranform 100ms time, opacity); 的情况
+      $value: set-nth($value, 1, checkTransitionValuePrefix(nth($value, 1), $prefix));
+      $values: set-nth($values, $i, $value);
+    }
+  }
+  @return $values;
+}
+
+// 自动处理transiton前缀（包括transform对应前缀）
+// 例：@include transition(transform 2s ease, opacity 2s ease);
+@mixin transition($values...) {
+  $prefixes: (webkit moz ms o spec);
+  @each $prefix in $prefixes {
+    @if $prefix == webkit and $prefix-for-webkit == true {
+      -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+    } @else if $prefix == moz and $prefix-for-mozilla == true {
+      -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+    } @else if $prefix == ms and $prefix-for-microsoft == true {
+      -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+    } @else if $prefix == o and $prefix-for-opera == true {
+      -#{$prefix}-transition: prefixerForTransitionValue($values, $prefix);
+    } @else if $prefix == spec and $prefix-for-spec == true {
+      transition: $values;
+    } @else {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// 自动处理新旧标准的flex（可用值：row, row-reverse, column, column-reverse）
+@mixin display-flex($direction: null) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  @if ($direction  == row) {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+  } @else if ($direction == row-reverse) {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+  } @else if ($direction == column) {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+  } @else if ($direction == column-reverse) {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+  }
+  @if ($direction) {
+    -webkit-flex-direction: $direction;
+    flex-direction: $direction;
+  }
+}
+
+// 自动处理新旧标准的flex-wrap（可用值：nowrap, wrap）
+@mixin flex-wrap($value) {
+  @if ($value == nowrap) {
+    -webkit-box-lines: single;
+  } @else if ($value == wrap) {
+    -webkit-box-lines: multiple;
+  }
+  -webkit-flex-wrap: $value;
+  flexwrap: $value;
+}
+
+// 自动处理新旧标准的justify-content（可用值：flex-start, center, flex-end, space-between）
+@mixin justify-content($value) {
+  @if ($value == flex-start) {
+    -webkit-box-pack: start;
+  } @else if ($value == center) {
+    -webkit-box-pack: center;
+  } @else if ($value == flex-end) {
+    -webkit-box-pack: end;
+  } @else if ($value == space-between) {
+    -webkit-box-pack: justify;
+  }
+  -webkit-justify-content: $value;
+  justify-content: $value;
+}
+
+// 自动处理新旧标准的align-items（可用值：flex-start, center, flex-end, baseline, stretch）
+@mixin align-items($value) {
+  @if ($value == flex-start) {
+    -webkit-box-align: start;
+  } @else if ($value == center) {
+    -webkit-box-align: center;
+  } @else if ($value == flex-end) {
+    -webkit-box-align: end;
+  } @else if ($value == baseline) {
+    -webkit-box-align: baseline;
+  } @else if ($value == stretch) {
+    -webkit-box-align: stretch;
+  }
+  -webkit-align-items: $value;
+  align-items: $value;
+}
+
+// 自动处理新旧标准的flex（可用值：数字，默认：1）
+@mixin flex($value: 1) {
+  display: block;
+  -webkit-box-flex: $value;
+  -webkit-flex: $value;
+  flex: $value;
+}
+
+// rem大小计算基准值
+$baseFontSize: 10px !default;
+$baseFontRatio: 2 !default;
+
+// root字体大小设为10px
+html {
+  font-size: $baseFontSize;
+}
+
+// 针对不同的设备，对页面rem做不同缩放
+html {
+  font-size: $baseFontSize*.5;
+  @media screen and (min-width: 320px) {
+    font-size: $baseFontSize*.9;
+  }
+  @media screen and (min-width: 360px) {
+    font-size: $baseFontSize;
+  }
+  @media screen and (min-width: 400px) {
+    font-size: $baseFontSize*1.1;
+  }
+  overflow-x: hidden;
+}
+
+// body中重置为14px，确保没写font-size的元素，字体大小较为正常
+body {
+  font-size: $baseFontSize*1.4;
+}
+
+// 去除数值后的单位
+@function stripUnits($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+// px换算成rem值，可多参数、带单位
+@function px2rem($sizes) {
+  $result: '';
+
+  @each $size in $sizes {
+    $rem: $size;
+    @if $result != '' {
+      $result: $result + ' ';
+    }
+
+    @if type_of($size) == number {
+      $rem: (stripUnits($size / $baseFontSize)/$baseFontRatio) + rem;
+    }
+
+    $result: $result + $rem;
+  }
+
+  //$result : $result + ' ' + '/*#{$sizes}*/';
+  @return unquote($result);
+}
+
+@mixin txt-height($height) {
+  height: $height;
+  line-height: $height;
+}
+
+//实现设置某一属性的真实1px
+@mixin set1px($property) {
+  #{$property}: 1px;
+  @media screen and (-webkit-device-pixel-ratio: 2) {
+    #{$property}: (1px / 2);
+  }
+  @media screen and (-webkit-device-pixel-ratio: 3) {
+    #{$property}: 0.4px;
+  }
+}
+
+//在retina的屏幕上实现真实的1px边框
+@mixin border1px($dir,$color) {
+  @if ($dir==all) {
+    border: 1px solid $color;
+    @media screen and (-webkit-device-pixel-ratio: 2) {
+      border: (1px / 2) solid $color;
+    }
+    @media screen and (-webkit-device-pixel-ratio: 3) {
+      border: 0.4px solid $color;
+    }
+  } @else {
+    border-#{$dir}: 1px solid $color;
+    @media screen and (-webkit-device-pixel-ratio: 2) {
+      border-#{$dir}: (1px / 2) solid $color;
+    }
+    @media screen and (-webkit-device-pixel-ratio: 3) {
+      border-#{$dir}: 0.4px solid $color;
+    }
+  }
+}

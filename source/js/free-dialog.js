@@ -1,6 +1,6 @@
 /**
  * Created by Grayson Rex on 2015/5/13.
- * Version: 1.33
+ * Version: 1.34
  */
 
 /* 简单弹窗类 ST */
@@ -370,7 +370,7 @@
     };
     FreeDialog.ask = function (content, title, yesCallback, noCallback) {
         window.setTimeout(function () {
-            FreeDialog.tips(content, title, yesCallback, noCallback);
+            FreeDialog.ask(content, title, yesCallback, noCallback);
         }, 100);
     };
 
@@ -459,7 +459,7 @@
             footBtns: [
                 {
                     name: '取消',
-                    extraClass: 'nagtive',
+                    extraClass: 'negative',
                     click: function (e) {
                         if (typeof(this.noCallback) == 'function') {
                             if (this.noCallback.apply(this, [e]) === false) {
@@ -494,13 +494,15 @@
         /**
          * 弹出一个带有确定键的对话框，点击确定或取消后执行对应回调函数
          * @param content 对话框内的文本内容、DOM或二者的数组
-         * @param title 对话框的标题（可缺省）
+         * @param title 对话框的标题
          * @param yesCallback 点击确定时的回调函数
          * @param noCallback 点击取消时的回调函数
+         * @param yesText 确定键的提示文字（可缺省）
+         * @param noText 取消键的提示文字（可缺省）
          */
-        FreeDialog.ask = function (content, title, yesCallback, noCallback) {
+        FreeDialog.ask = function (content, title, yesCallback, noCallback, yesText, noText) {
             var _this = FreeDialog.askDialog;
-            if (arguments.length == 3) {
+            if (arguments.length == 3 && typeof(arguments[1]) == 'function') {
                 noCallback = arguments[2];
                 yesCallback = arguments[1];
                 title = null;
@@ -510,6 +512,12 @@
             _this.setContent(content);
             _this.yesCallback = yesCallback;
             _this.noCallback = noCallback;
+
+            var btnYes = _this.DOM.footer.querySelector('.positive');
+            btnYes && (btnYes.innerHTML = yesText || '确定');
+            var btnNo = _this.DOM.footer.querySelector('.negative');
+            btnNo && (btnNo.innerHTML = noText || '取消');
+
             _this.show(null);
         };
     }
